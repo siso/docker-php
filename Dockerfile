@@ -1,18 +1,15 @@
 FROM ubuntu:14.04
 
+MAINTAINER Simone Soldateschi <simone.soldateschi@gmail.com>
+
 RUN apt-get update
 RUN apt-get dist-upgrade -y
-RUN apt-get install -y apache2
-RUN mkdir /var/lock/apache2
+RUN apt-get install -y nginx
 
-ENV APACHE_RUN_USER www-data
-ENV APACHE_RUN_GROUP www-data
-ENV APACHE_LOG_DIR /var/log/apache2
-ENV APACHE_LOCK_DIR /var/lock/apache2
-ENV APACHE_PID_FILE /var/run/apache2.pid
+# tell Nginx to stay foregrounded
+RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
 EXPOSE 80
 
-ENTRYPOINT ["/usr/sbin/apache2"]
-#ENTRYPOINT ["/bin/ls -la"]
-CMD ["-D", "FOREGROUND"]
+ENTRYPOINT ["/usr/sbin/nginx"]
+CMD ["-c", "/etc/nginx/nginx.conf"]
