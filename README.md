@@ -6,13 +6,13 @@ Supervisor keeps all the things up and running.
 
 ## Quick-start
 
-Create a container:
+Create an image from Dockerfile:
 
 ```
 docker build -t="ubuntu-phpapp" .
 ```
 
-Run it:
+Run a container from the the image:
 
 ```
 docker run -d -p 80:80 ubuntu-phpapp
